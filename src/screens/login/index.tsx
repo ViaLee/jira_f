@@ -33,6 +33,7 @@ export const LoginScreen = () => {
         <input type="password" id="password" />
       </div>
       <button type="submit">登录</button>
+      <div className="triangle"></div>
     </form>
   );
 };
