@@ -1,6 +1,7 @@
 import React, { FormEventHandler, FormEvent } from "react";
 import { useAuth } from "context/auth-context";
 import { Form, Input, Button } from "antd";
+import {LongButton} from './index'
 
 export const LoginScreen = () => {
   const { login, user } = useAuth();
@@ -23,9 +24,9 @@ export const LoginScreen = () => {
         <Input type="password" placeholder="密码" id="password" />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <LongButton type="primary" htmlType="submit">
           登录
-        </Button>
+        </LongButton>
       </Form.Item>
       <div className="triangle"></div>
     </Form>
