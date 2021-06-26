@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { List } from "./list";
 import styled from "@emotion/styled";
 import { cleanObject, useMount, useDebounce } from "../../utils";
-import * as qs from "qs";
 import { useHttp } from "utils/http";
 export const ProjectListScreen = () => {
   const [users, setUsers] = useState([]);
@@ -14,11 +13,11 @@ export const ProjectListScreen = () => {
   });
   const debounceParam = useDebounce(param, 500);
   const [list, setList] = useState([]);
-  const apiUrl = process.env.REACT_APP_API_URL;
   const client = useHttp();
 
   useEffect(() => {
     client("projects", { data: cleanObject(debounceParam) }).then(setList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceParam]);
 
   useMount(() => {
