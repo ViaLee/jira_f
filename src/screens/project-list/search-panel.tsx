@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { Input, Select, Form } from "antd";
 
@@ -21,7 +23,7 @@ interface SearchPanelProps {
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <Form style={{ marginBottom: "2rem" }} layout="inline">
+    <Form css={{ marginBottom: "2rem" }} layout="inline">
       <Form.Item>
         {/*setParam(Object.assign({}, param, {name:evt.target.value}))*/}
         <Input
