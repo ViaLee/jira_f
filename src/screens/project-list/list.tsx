@@ -1,7 +1,7 @@
 import React from "react";
 import { User } from "screens/project-list/search-panel";
 import { Table } from "antd";
-interface Project {
+export interface Project {
   id: string;
   name: string;
   personId: string;
@@ -12,11 +12,14 @@ interface Project {
 interface ListProps {
   list: Project[];
   users: User[];
+  loading: boolean;
 }
-export const List = ({ list, users }: ListProps) => {
+export const List = ({ list, users, loading }: ListProps) => {
   return (
     <Table
+      loading={loading}
       pagination={false}
+      rowKey="id"
       columns={[
         {
           title: "名称",

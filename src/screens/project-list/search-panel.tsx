@@ -18,10 +18,16 @@ interface SearchPanelProps {
     name: string;
     personId: string;
   };
+  loading: boolean;
   setParam: (param: SearchPanelProps["param"]) => void;
 }
 
-export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
+export const SearchPanel = ({
+  users,
+  param,
+  setParam,
+  loading,
+}: SearchPanelProps) => {
   return (
     <Form css={{ marginBottom: "2rem" }} layout="inline">
       <Form.Item>
@@ -40,6 +46,10 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
       </Form.Item>
       <Form.Item>
         <Select
+          loading={loading}
+          allowClear
+          style={{ minWidth: "100px" }}
+          placeholder={"负责人"}
           value={param.personId}
           onChange={(value) =>
             setParam({
@@ -48,7 +58,6 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             })
           }
         >
-          <Select.Option value={""}>负责人</Select.Option>
           {users.map((user) => (
             <Select.Option key={user.id} value={user.id}>
               {user.name}

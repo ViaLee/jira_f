@@ -1,33 +1,28 @@
 import { SearchPanel } from "./search-panel";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { List } from "./list";
 import styled from "@emotion/styled";
-import { cleanObject, useMount, useDebounce } from "../../utils";
-import { useHttp } from "utils/http";
-export const ProjectListScreen = () => {
-  const [users, setUsers] = useState([]);
+import { useProject } from "utils/project";
+import { useUser } from "utils/user";
 
+export const ProjectListScreen = () => {
+  const { list: users, isLoading: userLoding } = useUser();
   const [param, setParam] = useState({
     name: "",
     personId: "",
   });
-  const debounceParam = useDebounce(param, 500);
-  const [list, setList] = useState([]);
-  const client = useHttp();
+  const { list, isLoading } = useProject(param);
 
-  useEffect(() => {
-    client("projects", { data: cleanObject(debounceParam) }).then(setList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debounceParam]);
-
-  useMount(() => {
-    client("users").then(setUsers);
-  });
   return (
     <Container>
       <h1>项目列表</h1>
-      <SearchPanel users={users} param={param} setParam={setParam} />
-      <List users={users} list={list} />
+      <SearchPanel
+        users={users || []}
+        loading={userLoding}
+        param={param}
+        setParam={setParam}
+      />
+      <List users={users || []} list={list || []} loading={isLoading} />
     </Container>
   );
 };

@@ -13,11 +13,25 @@ const defaultState: State<null> = {
   error: null,
 };
 
-export const useAsync = <D>(initialState: State<D>) => {
+export const useAsync = <D>(initialState?: State<D>) => {
   const [state, setState] = useState<State<D>>({
     ...defaultState,
     ...initialState,
   });
+
+  const setData = (data: D) =>
+    setState({
+      data,
+      stat: "success",
+      error: null,
+    });
+
+  const setError = (error: Error) =>
+    setState({
+      data: null,
+      stat: "error",
+      error: error,
+    });
 
   const run = (promisefn: Promise<D>) => {
     //   (param:D) 为啥这个参数不要声明
@@ -32,25 +46,21 @@ export const useAsync = <D>(initialState: State<D>) => {
     });
     return promisefn
       .then((data) => {
-        setState({
-          stat: "success",
-          data: data,
-          error: null,
-        });
+        setData(data);
       })
       .catch((err) => {
-        setState({
-          stat: "error",
-          data: null,
-          error: err,
-        });
+        setError(err);
       });
   };
 
-  //   run(client(param))
-
   return {
+    isIdle: state.stat === "idle",
+    isLoading: state.stat === "loading",
+    isError: state.stat === "error",
+    isSuccess: state.stat === "success",
     run,
     ...state,
+    setData,
+    setError,
   };
 };
