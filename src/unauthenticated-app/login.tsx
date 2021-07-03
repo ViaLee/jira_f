@@ -1,13 +1,15 @@
 import React from "react";
 import { useAuth } from "context/auth-context";
 import { Form, Input } from "antd";
-import {LongButton} from './index'
-
-export const LoginScreen = () => {
+import { LongButton } from "./index";
+//  ({ onError:()=>void }) => {
+export const LoginScreen = ({ onError }: { onError: (err: Error) => void }) => {
   const { login } = useAuth();
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    login({ ...values });
+    login({ ...values }).catch((err) => {
+      onError(err.message);
+    });
   };
   return (
     <Form onFinish={handleSubmit}>

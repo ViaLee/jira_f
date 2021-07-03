@@ -3,11 +3,18 @@ import { useAuth } from "context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
 
-export const RegisterScreen = () => {
+// Error类型
+export const RegisterScreen = ({
+  onError,
+}: {
+  onError: (err: Error) => void;
+}) => {
   const { register } = useAuth();
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    register(values);
+    register(values).catch((err) => {
+      onError(err.message);
+    });
   };
 
   return (
