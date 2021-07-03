@@ -13,11 +13,20 @@ const defaultState: State<null> = {
   error: null,
 };
 
-export const useAsync = <D>(initialState?: State<D>) => {
+const defaultConfig = {
+  throwError: false,
+};
+
+export const useAsync = <D>(
+  initialState?: State<D>,
+  initialConfig?: { throwError?: boolean }
+) => {
   const [state, setState] = useState<State<D>>({
     ...defaultState,
     ...initialState,
   });
+
+  const config = { ...defaultConfig, ...initialConfig };
 
   const setData = (data: D) =>
     setState({
@@ -50,6 +59,10 @@ export const useAsync = <D>(initialState?: State<D>) => {
       })
       .catch((err) => {
         setError(err);
+        // throw new Error(err); 手动抛错
+        if (config.throwError) {
+          return Promise.reject(err); // 将promise 状态从pending变为失败
+        }
       });
   };
 

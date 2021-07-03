@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
+import { useAsync } from "utils/use-async";
 
 // Error类型
 export const RegisterScreen = ({
@@ -10,9 +11,11 @@ export const RegisterScreen = ({
   onError: (err: Error) => void;
 }) => {
   const { register } = useAuth();
+  //                             为什么undefined不报错？
+  const { run, isLoading } = useAsync(undefined, { throwError: true });
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    register(values).catch((err) => {
+    run(register(values)).catch((err) => {
       onError(err.message);
     });
   };
@@ -32,7 +35,7 @@ export const RegisterScreen = ({
         <Input placeholder={"密码"} type="password" id={"password"} />
       </Form.Item>
       <Form.Item>
-        <LongButton htmlType={"submit"} type={"primary"}>
+        <LongButton loading={isLoading} htmlType={"submit"} type={"primary"}>
           注册
         </LongButton>
       </Form.Item>
