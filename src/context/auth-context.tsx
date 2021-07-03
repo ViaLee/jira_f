@@ -5,6 +5,7 @@ import { http } from "utils/http";
 import { useMount } from "utils";
 import { useAsync } from "utils/use-async";
 import { Spin } from "antd";
+import { FullPageErrorFallback, FullPageLoading } from "components/lib";
 
 interface AuthForm {
   username: string;
@@ -34,7 +35,8 @@ AuthContext.displayName = "AuthContext";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const { run, isLoading, data } = useAsync<User | null>();
+  const { run, isLoading, isIdle, data, isError, error } =
+    useAsync<User | null>();
 
   const login = (form: AuthForm) =>
     auth.login(form).then((user) => setUser(user));
@@ -43,23 +45,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useMount(() => {
     // bootstrapUser().then(setUser);
-    const token = auth.getToken();
-    if (token) {
-      // const data = await http("me", { token });
-      run(http("me", { token }));
-      // setUser(data)
-    }
+    // const token = auth.getToken();
+    // if (token) {
+    //   // const data = await http("me", { token });
+    //   run(http("me", { token }));
+    //   // setUser(data)
+    // }
+    run(bootstrapUser());
   });
 
   useEffect(() => {
-    console.log(data) // 此处data 有问题 应该是user, 却是{user:{}}
+    console.log(data); // 此处data 有问题 应该是user, 却是{user:{}}
     setUser(data);
   }, [data]);
 
+  // return ( // self
+  //   <AuthContext.Provider value={{ user, login, register, logout }}>
+  //     {isLoading || isIdle ? <FullPageLoading /> : children}
+  //     {isError ? (
+  //       <FullPageErrorFallback error={error}></FullPageErrorFallback>
+  //     ) : (
+  //       ""
+  //     )}
+  //   </AuthContext.Provider>
+  // );
+
+  if (isLoading || isIdle) {
+    return <FullPageLoading />;
+  }
+
+  if (isError) {
+    return <FullPageErrorFallback error={error}></FullPageErrorFallback>;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
-      {isLoading ? <Spin></Spin> : children}
-    </AuthContext.Provider>
+    <AuthContext.Provider
+      children={children}
+      value={{ user, login, register, logout }}
+    />
   );
 };
 
