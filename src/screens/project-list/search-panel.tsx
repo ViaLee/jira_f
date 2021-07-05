@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Input, Select, Form } from "antd";
-
+import { useDocumentTitle } from "utils";
 export interface User {
   id: string;
   name: string;
@@ -28,6 +28,7 @@ export const SearchPanel = ({
   setParam,
   loading,
 }: SearchPanelProps) => {
+  useDocumentTitle("列表", false);
   return (
     <Form css={{ marginBottom: "2rem" }} layout="inline">
       <Form.Item>

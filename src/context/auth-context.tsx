@@ -4,7 +4,6 @@ import { User } from "screens/project-list/search-panel";
 import { http } from "utils/http";
 import { useMount } from "utils";
 import { useAsync } from "utils/use-async";
-import { Spin } from "antd";
 import { FullPageErrorFallback, FullPageLoading } from "components/lib";
 
 interface AuthForm {
