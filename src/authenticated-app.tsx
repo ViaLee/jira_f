@@ -6,24 +6,26 @@ import { ProjectListScreen } from "screens/project-list";
 // import softwareLogo from 'assets/software-logo.svg'
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import { ProjectScreen } from "screens/project";
 import { BrowserRouter as Router } from "react-router-dom";
+import { resetHref } from "utils";
 
 export const AuthenticatedApp = () => {
   return (
     <Container>
-      <PageHeader></PageHeader>
+      <PageHeader />
       <Main>
         <Router>
-        <Routes>
-          <Route path={"/projects"} element={<ProjectListScreen />}></Route>
-          <Route
-            path={"/projects/:projectId/*"}
-            element={<ProjectScreen />}
-          ></Route>
-        </Routes>
-      </Router>
+          <Routes>
+            <Route path={"/projects"} element={<ProjectListScreen />}></Route>
+            <Route
+              path={"/projects/:projectId/*"}
+              element={<ProjectScreen />}
+            ></Route>
+            <Navigate to={"/projects"} />
+          </Routes>
+        </Router>
       </Main>
     </Container>
   );
@@ -36,7 +38,14 @@ const PageHeader = () => {
     <Header between={true}>
       <HeaderLeft gap={true}>
         {/* <img src={softwareLogo} /> */}
-        <SoftwareLogo width="18rem" color={"rgb(38,132,255)"} />
+        <Button
+          type="link"
+          onClick={() => {
+            resetHref();
+          }}
+        >
+          <SoftwareLogo width="18rem" color={"rgb(38,132,255)"} />
+        </Button>
         <h2>项目</h2>
         <h2>用户</h2>
       </HeaderLeft>

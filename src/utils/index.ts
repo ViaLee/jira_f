@@ -100,3 +100,7 @@ export const useDocumentTitle = (
   }, [keepOnUnmount, oldTitle]);
   // document.title = title
 };
+
+export const resetHref = () => {
+  window.location.href = window.location.origin;
+};
