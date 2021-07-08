@@ -60,7 +60,8 @@ export const SearchPanel = ({
           }
         >
           {users.map((user) => (
-            <Select.Option key={user.id} value={user.id}>
+            // param.personId 为数字时与url参数不匹配
+            <Select.Option key={user.id} value={String(user.id)}>
               {user.name}
             </Select.Option>
           ))}
