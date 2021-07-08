@@ -101,6 +101,4 @@ export const useDocumentTitle = (
   // document.title = title
 };
 
-export const resetHref = () => {
-  window.location.href = window.location.origin;
-};
+export const resetHref = () => (window.location.href = window.location.origin);

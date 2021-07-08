@@ -4,6 +4,7 @@ import { List } from "./list";
 import styled from "@emotion/styled";
 import { useProject } from "utils/project";
 import { useUser } from "utils/user";
+import { useUrlQueryParam } from "utils/url";
 
 export const ProjectListScreen = () => {
   const { list: users, isLoading: userLoding } = useUser();
@@ -12,7 +13,8 @@ export const ProjectListScreen = () => {
     personId: "",
   });
   const { list, isLoading } = useProject(param);
-
+  const [para] = useUrlQueryParam(["name"]);
+  console.log(para);
   return (
     <Container>
       <h1>项目列表</h1>
