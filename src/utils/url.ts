@@ -64,11 +64,10 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   console.log(keys);
   return [
     useMemo(
-      () => {
-        return keys.reduce((prev, key) => {
+      () =>
+        keys.reduce((prev, key) => {
           return { ...prev, [key]: searchParams.get(key) || "" };
-        }, {} as { [key in K]: string });
-      },
+        }, {} as { [key in K]: string }),
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [searchParams]
     ),

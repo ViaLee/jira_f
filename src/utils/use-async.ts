@@ -53,6 +53,7 @@ export const useAsync = <D>(
       data: null,
       error: null,
     });
+    // 为啥不需要promisefn().then
     return promisefn
       .then((data) => {
         setData(data);
