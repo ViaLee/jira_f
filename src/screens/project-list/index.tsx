@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import { useProject } from "utils/project";
 import { useUser } from "utils/user";
 import { useUrlQueryParam } from "utils/url";
-import Form from '../../components/Form'
 import { useDebounce } from "utils";
 
 export const ProjectListScreen = () => {
@@ -24,8 +23,7 @@ export const ProjectListScreen = () => {
         param={param}
         setParam={setParam}
       />
-      {/* <List users={users || []} list={list || []} loading={isLoading} /> */}
-      <Form></Form>
+      <List users={users || []} list={list || []} loading={isLoading} />
     </Container>
   );
 };

@@ -3,10 +3,12 @@ import { Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import React from "react";
 import { ProjectListScreen } from "screens/project-list";
+import { FormList } from "screens/Form";
+import {Scroll} from 'screens/Scroll'
 // import softwareLogo from 'assets/software-logo.svg'
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ProjectScreen } from "screens/project";
 import { BrowserRouter as Router } from "react-router-dom";
 import { resetHref } from "utils";
@@ -23,6 +25,8 @@ export const AuthenticatedApp = () => {
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             ></Route>
+            <Route path={"/formList"} element={<FormList />}></Route>
+            <Route path={"/scroll"} element={<Scroll />}></Route>
             <Navigate to={"/projects"} />
           </Routes>
         </Router>
