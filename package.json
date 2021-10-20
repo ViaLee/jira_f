@@ -6,6 +6,7 @@
     "@craco/craco": "^6.1.2",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "@rescripts/cli": "^0.0.16",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -19,6 +20,7 @@
     "dayjs": "^1.10.5",
     "history": "^5.0.0",
     "jira-dev-tool": "^1.6.59",
+    "qiankun": "^2.5.1",
     "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -30,10 +32,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject",
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
     "prepare": "husky install",
     "json-server": "json-server __json_server_mock__/db.json --watch --port 3001 --middlewares ./__json_server_mock__/middleware.js"
   },

@@ -18,7 +18,7 @@ export const AuthenticatedApp = () => {
     <Container>
       <PageHeader />
       <Main>
-        <Router>
+        <Router basename={window.__POWERED_BY_QIANKUN__ ? '/app-react' : '/'}>
           <Routes>
             <Route path={"/projects"} element={<ProjectListScreen />}></Route>
             <Route
