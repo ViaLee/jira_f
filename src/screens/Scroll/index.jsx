@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import Form, { FormItem, Input } from "../../components/Form";
+import "./index.less";
 import { ScrollView } from "./ScrollView";
 import { useProject } from "utils/project";
 import { useDebounce } from "utils";
 
 function Item({ item }) {
   return (
-    <div className="goods_item">
-      <img src={item.giftImage} className="item_image" />
+    <div className="goods_item" key={item?.id}>
+      <img src={item?.giftImage} className="item_image" />
       <div className="item_content">
-        <div className="goods_name">{item.giftName}</div>
+        <div className="goods_name">{item?.name}</div>
         <div className="hold_price" />
         <div className="new_price">
           <div className="new_price">
-            <div className="one view">¥ {item.price}</div>
+            <div className="one view">¥ {item?.organization}</div>
           </div>
         </div>
         <img className="go_share  go_text" />
@@ -24,14 +24,14 @@ function Item({ item }) {
 }
 
 export const Scroll = () => {
-  const debouncedParam = useDebounce();
-  const { list, isLoading } = useProject(debouncedParam);
+  // const debouncedParam = useDebounce();
+  const { list, isLoading } = useProject();
 
-  const getData = () => {
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
 
-  };
-
-  return <ScrollView data={list} component={Item}></ScrollView>;
+  return <ScrollView data={list} component={Item} scrolltolower={()=>{console.log('继续获取下一页数据')}}/>;
 };
 
 Scroll.whyDidYouRender = true;
