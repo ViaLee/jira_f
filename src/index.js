@@ -24,7 +24,7 @@ function render(props) {
 }
 
 if (!window.__POWERED_BY_QIANKUN__) {
-  render({})
+  loadServer(() => render({}));
 }
 
 export async function bootstrap() {

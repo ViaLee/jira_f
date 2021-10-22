@@ -2,6 +2,7 @@
   "name": "jira_f",
   "version": "0.1.0",
   "private": true,
+  "port":3001,
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@emotion/react": "^11.4.0",

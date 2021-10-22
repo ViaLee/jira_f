@@ -14,6 +14,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { resetHref } from "utils";
 
 export const AuthenticatedApp = () => {
+  console.log(window.__POWERED_BY_QIANKUN__)
+  debugger
   return (
     <Container>
       <PageHeader />
